@@ -1,6 +1,6 @@
-from __future__ import print_function
+
 from binaryninja import show_message_box
-from util import *
+from .util import *
 import cgi
 
 # We could switch this to a mako template to get a bit more power - strictly speaking, we could
@@ -112,7 +112,15 @@ class ExplanationWindow(object):
         self._flags = parse_flags(self, tuple_list_list)
 
     def escape(self, in_str):
-        return cgi.escape(in_str)
+        # cgi.escape is deprecated.
+        try:
+            return cgi.escape(in_str)
+        except:
+            try:
+                import html
+                return html.escape(in_str)
+            except:
+                raise "Unable to call escape()"
 
 def explain_window():
     global window

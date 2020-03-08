@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import sys
 if (sys.platform == 'win32'):
     sys.path.append("C:\\Python27\\lib\\site-packages")
@@ -20,7 +20,7 @@ try:
 except IndexError:
     raise Exception("Could not attach to main window!")
 
-from util import *
+from .util import *
 
 mlil_tooltip = """Often, several assembly instructions make up one MLIL instruction.
 The MLIL instruction shown may not correspond to this instruction

@@ -486,10 +486,10 @@ def find_proper_name(instruction):
 
 def get_doc_url(i):
     """ Takes in the instruction tokens and returns [(short form, doc url)] """
-    names = map(find_proper_name, i) # handles instruction prefixes
+    names = list(map(find_proper_name, i)) # handles instruction prefixes
     output = []
     for name in names:
-        if name in instrs.keys():
+        if name in list(instrs.keys()):
             inst_data = instrs[name][0]
             output.append((inst_data['short'], inst_data['link']))
     if len(output) == 0:

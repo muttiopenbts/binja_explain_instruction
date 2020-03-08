@@ -1761,10 +1761,10 @@ instrs = {
              'short': 'Monitor Wait'}],
  'NEG': [{'instr': 'NEG',
            'link': 'http://www.felixcloutier.com/x86/NEG.html',
-           'short': u"Two's Complement Negation"},
+           'short': "Two's Complement Negation"},
           {'instr': 'NEG',
            'link': 'http://x86.renejeschke.de/html/file_module_x86_id_216.html',
-           'short': u"Two's Complement Negation"}],
+           'short': "Two's Complement Negation"}],
  'NOP': [{'instr': 'NOP',
            'link': 'http://www.felixcloutier.com/x86/NOP.html',
            'short': 'No Operation'},
@@ -1773,10 +1773,10 @@ instrs = {
            'short': 'No Operation'}],
  'NOT': [{'instr': 'NOT',
            'link': 'http://www.felixcloutier.com/x86/NOT.html',
-           'short': u"One's Complement Negation"},
+           'short': "One's Complement Negation"},
           {'instr': 'NOT',
            'link': 'http://x86.renejeschke.de/html/file_module_x86_id_218.html',
-           'short': u"One's Complement Negation"}],
+           'short': "One's Complement Negation"}],
  'OR': [{'instr': 'OR',
           'link': 'http://www.felixcloutier.com/x86/OR.html',
           'short': 'Logical Inclusive OR'},
@@ -3337,10 +3337,10 @@ def find_proper_name(instruction):
 
 def get_doc_url(i):
     """ Takes in the instruction tokens and returns [(short form, doc url)] """
-    names = map(find_proper_name, i) # handles instruction prefixes
+    names = list(map(find_proper_name, i)) # handles instruction prefixes
     output = []
     for name in names:
-        if name in instrs.keys():
+        if name in list(instrs.keys()):
             inst_data = instrs[name][0]
             output.append((inst_data['short'], inst_data['link']))
     # For 90% of instructions, output could just be a tuple and we could be done with it.

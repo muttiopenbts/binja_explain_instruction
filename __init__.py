@@ -1,13 +1,13 @@
 from binaryninja import LowLevelILOperation, PluginCommand, log_info, log_error
 
 try:
-    from gui import explain_window
+    from .gui import explain_window
 except:
     log_info("PyQt5 Gui unavailable; falling back to MessageBox hack")
-    from native_gui import explain_window
-from instruction_state import get_state
-from explain import explain_llil, fold_multi_il
-from util import get_function_at, find_mlil, find_llil, find_lifted_il, inst_in_func, dereference_symbols
+    from .native_gui import explain_window
+from .instruction_state import get_state
+from .explain import explain_llil, fold_multi_il
+from .util import get_function_at, find_mlil, find_llil, find_lifted_il, inst_in_func, dereference_symbols
 
 import traceback
 
@@ -21,32 +21,39 @@ def init_plugin(bv):
     # Sets up architecture-specific functions
     if bv.arch.name != arch:
         if 'x86' in bv.arch.name:
-            import x86, x86.explain
+            from . import x86
+            from .x86 import explain
             explain_window().get_doc_url = x86.get_doc_url
             architecture_specific_explanation_function = x86.explain.arch_explain_instruction
         elif 'mips' in bv.arch.name:
-            import mips, mips.explain
+            from . import mips
+            from .mips import explain
             explain_window().get_doc_url = mips.get_doc_url
             architecture_specific_explanation_function = mips.explain.arch_explain_instruction
         elif 'aarch64' in bv.arch.name:
-            import aarch64, aarch64.explain
+            from . import aarch64
+            from .aarch64 import explain
             explain_window().get_doc_url = aarch64.get_doc_url
             architecture_specific_explanation_function = aarch64.explain.arch_explain_instruction
         elif 'arm' in bv.arch.name or 'thumb' in bv.arch.name: # Note: completely untested on thumb2. I couldn't find a test binary.
-            import ual, ual.explain
+            from . import ual
+            from .ual import explain
             explain_window().get_doc_url = ual.get_doc_url
             architecture_specific_explanation_function = ual.explain.arch_explain_instruction
         elif '6502' in bv.arch.name:
-            import asm6502, asm6502.explain
+            from . import asm6502
+            from .asm6502 import explain
             explain_window().get_doc_url = asm6502.get_doc_url
             architecture_specific_explanation_function = asm6502.explain.arch_explain_instruction
         elif 'msp430' in bv.arch.name:
-            import msp430, msp430.explain
+            from . import msp430
+            from .msp430 import explain
             explain_window().get_doc_url = msp430.get_doc_url
             architecture_specific_explanation_function = msp430.explain.arch_explain_instruction
         elif 'powerpc' in bv.arch.name:
             # PowerPC support will likely be added in Binja v1.1; may need to change the arch name
-            import powerpc, powerpc.explain
+            from . import powerpc
+            from .powerpc import explain
             explain_window().get_doc_url = powerpc.get_doc_url
             architecture_specific_explanation_function = powerpc.explain.arch_explain_instruction
         arch = bv.arch.name
