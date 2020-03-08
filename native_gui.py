@@ -120,7 +120,7 @@ class ExplanationWindow(object):
                 import html
                 return html.escape(in_str)
             except:
-                raise "Unable to call escape()"
+                raise Exception("Unable to call escape()")
 
 def explain_window():
     global window
